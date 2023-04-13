@@ -1,0 +1,82 @@
+@charset "utf-8";
+/* 調整用のCSSファイルです */
+
+
+/* 三行を超える文字を省略 */
+.cus-line-ellipse {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cus-card-body-height {
+  height: 100%;
+}
+
+.cus-card-height {
+  height: 250px;
+}
+
+.cus-carousel-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.cus-xsmall-font {
+  font-size: 0.8rem;
+}
+
+.cus-small-font {
+  font-size: 0.9rem;
+}
+
+.cus-small-text-indent {
+  text-indent: 0.9rem;
+}
+
+.cus-highlight {
+  background-color: blue;
+}
+
+.cus-link-color {
+  color: aqua;
+}
+
+.cus-link-color:hover {
+  color: #0cede1;
+}
+
+.carousel-control-prev {
+  width: 10%;
+  height: 90%;
+  left: -10%;
+}
+
+.carousel-control-next {
+  width: 10%;
+  height: 90%;
+  right: -10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 4rem;
+  width: 4rem;
+}
+
+@media all and (min-width: 768px) {
+  .carousel-control-prev {
+    width: 5%;
+    left: -5%;
+  }
+
+  .carousel-control-next {
+    width: 5%;
+    right: -5%;
+  }
+}
+
+#search-box::placeholder {
+  text-align: center;
+}

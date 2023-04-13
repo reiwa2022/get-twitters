@@ -1,0 +1,16 @@
+/bin
+/node_modules
+/out
+/views/partials/_author.ejs
+/views/partials/_header.ejs
+/views/partials/未使用_footer.ejs
+/public/js/scroll.js
+/public/js/jquery.onepage-scroll.js
+/public/js/copylight.js
+/public/css/bootstrap-reboot.css
+/public/css/destyle.css
+/public/css/onepage-scroll.css
+/public/css/bootstrap.css
+.prettierrc
+.prettierignore
+.eslintrc.json

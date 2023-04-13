@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<%# 各画面共通レイアウト %>
+<html>
+
+<head>
+  <meta charset="utf=8">
+  <title>Twitter情報表示サイト(勉強用)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TwitterAPIを使用したテストサイト">
+  <%# BootstrapのCSSを読み込みます。 %>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <%# 調整用のCSSを読み込みます。 %>
+  <link rel="stylesheet" href="/css/twitter_app.css">
+  <%# BootstrapのJavascriptプラグインを読み込みます %>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <%# JQueryライブラリを読み込みます。 %>
+  <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
+  <%# ツイート関連情報のコンテナを削除するスクリプトを読み込みます %>
+  <script defer src="/js/delete-one-container.js"></script>
+  <%# カルーセルの高さを初期ページに合わせるスクリプトを読み込みます %>
+  <script defer src="/js/carousel-height.js"></script>
+  <%# カルーセルの高さをリセットするスクリプトを読み込みます %>
+  <script defer src="/js/carousel-height-reset.js"></script>
+</head>
+
+<body class="bg-primary text-light mt-3">
+  <%# ここにrenderでEJSを表示します) %>
+  <%- body %>
+</body>
+
+</html>
