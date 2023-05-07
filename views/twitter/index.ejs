@@ -1,5 +1,4 @@
-<%# ツイッターアプリのトップ画面 %>
-<section class="ap-main">
+<%# ツイッターアプリのトップ画面 %> <section class="ap-main">
   <%# ヘッダー(タイトル、連絡先)です。%>
   <header class="py-4">
     <div class="container">
@@ -62,25 +61,25 @@
                     <%# ツイッター情報一つ分のカラムです。 %>
                     <div class="col rounded-3 mb-1 tweet-column">
                       <%# カラムの中にカードを作成します。 %>
-                      <div class="card bg-info text-white cus-card-height" id="<%= `${elem[0].user.screen_name}` %>">
+                      <div class="card bg-info text-white cus-card-height" id="<%= `${elem.includes.users[0].username}` %>">
                         <%# カードヘッダー(アカウントアイコン、アカウント名、アカウント説明、削除ボタン)です。 %>
                         <div class="card-header">
                           <div class="row">
                             <div class="col-3">
-                              <a href="<%= `https://twitter.com/${elem[0].user.screen_name}` %>" target="_blank">
-                                <img src="<%= elem[0].user.profile_image_url_https %>" class="mx-auto d-block mb-1" alt="ツイッターアイコン">
+                              <a href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
+                                <img src="<%= `${elem.includes.users[0].profile_image_url}` %>" class="mx-auto d-block mb-1" alt="ツイッターアイコン">
                               </a>
-                              <button type="button" class="delete-btn mx-auto d-block rounded-3 text-nowrap" data-screen_name="<%= elem[0].user.screen_name %>">削除</button>
+                              <button type="button" class="delete-btn mx-auto d-block rounded-3 text-nowrap" data-screen_name="<%= `${elem.includes.users[0].username}` %>">削除</button>
                             </div>
                             <div class="col-9">
                               <div class="row">
                                 <div class="col-12 d-flex justify-content-center align-items-center py-1">
-                                  <a class="link-underline" href="<%= `https://twitter.com/${elem[0].user.screen_name}` %>" target="_blank">
-                                    <%- elem[0].user.name %>
+                                  <a class="link-underline" href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
+                                    <%- elem.includes.users[0].name %>
                                   </a>
                                 </div>
                                 <div class="col-12 cus-small-text-indent cus-small-font cus-line-ellipse">
-                                  <%- elem[0].user.description %>
+                                  <%- elem.includes.users[0].description %>
                                 </div>
                               </div>
                             </div>
@@ -89,7 +88,7 @@
                         <%# カードボディ(ツイート内容、ツイート時間)です。 %>
                         <div class="card-body overflow-auto cus-card-body-height">
                           <%# アカウントごとにツイートをすべて取得します %>
-                          <% elem.forEach((elemIn, index)=> { %>
+                          <% elem.data.forEach((elemIn, index)=> { %>
                           <p class="mb-0 lh-sm cus-small-text-indent cus-small-font cus-tweet-content">
                             <%= elemIn.text %>
                           </p>

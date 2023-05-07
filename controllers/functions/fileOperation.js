@@ -29,7 +29,7 @@ exports.readFileLines = function (filePath, encoding) {
     let arrayUserTl = [];
     // 一行ずつ読み込み、配列に追加していきます。
     rl.on('line', (lineString) => {
-      arrayUserTl.push({ screen_name: lineString, include_entities: 'true' });
+      arrayUserTl.push(lineString);
     });
     // 読み込みが終了したら、arrayUserTlをresolveし、Promiseチェーンに渡します。
     rl.on('close', () => {

@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 //
 // モジュール名: ツイート関連コントローラー
 // 説明:ツイッター認証、ツイート取得/検索、結果のソートを行い画面にレンダーします。
@@ -41,8 +41,8 @@ module.exports = {
         // 取得したツイート情報配列をツイート日時でソートします。
         const sortArrayTweetsUserTl = arrayTweetsUserTl.sort((a, b) => {
           //時刻を比較できるようにタイムスタンプ値に変換します。
-          if (new Date(Date.parse(a[0].created_at)) < new Date(Date.parse(b[0].created_at))) return 1;
-          if (new Date(Date.parse(a[0].created_at)) > new Date(Date.parse(b[0].created_at))) return -1;
+          if (new Date(Date.parse(a.data[0].created_at)) < new Date(Date.parse(b.data[0].created_at))) return 1;
+          if (new Date(Date.parse(a.data[0].created_at)) > new Date(Date.parse(b.data[0].created_at))) return -1;
           return 0;
         });
         // EJSで使用するためres.localsにソートしたツイート情報配列を格納します。
@@ -133,8 +133,8 @@ module.exports = {
         ).then((arrayTweetsUserTl) => {
           const sortArrayTweetsUserTl = arrayTweetsUserTl.sort((a, b) => {
             //時刻を比較できるようにタイムスタンプ値に変換します。
-            if (new Date(Date.parse(a[0].created_at)) < new Date(Date.parse(b[0].created_at))) return 1;
-            if (new Date(Date.parse(a[0].created_at)) > new Date(Date.parse(b[0].created_at))) return -1;
+            if (new Date(Date.parse(a.data[0].created_at)) < new Date(Date.parse(b.data[0].created_at))) return 1;
+            if (new Date(Date.parse(a.data[0].created_at)) > new Date(Date.parse(b.data[0].created_at))) return -1;
             return 0;
           });
           // Twitterモデルに入っているドキュメントをすべて削除します。
@@ -185,8 +185,8 @@ module.exports = {
       ).then((arrayTweetsUserTl) => {
         const sortArrayTweetsUserTl = arrayTweetsUserTl.sort((a, b) => {
           //時刻を比較できるようにタイムスタンプ値に変換します。
-          if (new Date(Date.parse(a[0].created_at)) < new Date(Date.parse(b[0].created_at))) return 1;
-          if (new Date(Date.parse(a[0].created_at)) > new Date(Date.parse(b[0].created_at))) return -1;
+          if (new Date(Date.parse(a.data[0].created_at)) < new Date(Date.parse(b.data[0].created_at))) return 1;
+          if (new Date(Date.parse(a.data[0].created_at)) > new Date(Date.parse(b.data[0].created_at))) return -1;
           return 0;
         });
         // Twitterモデルに入っているドキュメントをすべて削除します。
@@ -254,14 +254,15 @@ module.exports = {
         // ツイート関連情報配列からアカウント配列をmapで処理します。
         let searchResultUsers = searchArrayTweetsUsers.map((tweetsUser) => {
           // アカウント配列のツイート情報をfilterし検索ワードにヒットしたツイートを返します。
-          return tweetsUser.filter((tweets) => {
+          tweetsUser.data = tweetsUser.data.filter((tweets) => {
             let result = tweets.text.indexOf(req.body.searchWord);
             return result === -1 ? false : true;
           });
+          return tweetsUser;
         });
         // ツイート情報のfilterで検索ワードにヒットしなかったアカウントが空配列として格納されているため取り除きます。
         let searchResultUsersTrim = searchResultUsers.filter((searchUser) => {
-          return searchUser.length ? true : false;
+          return searchUser.data.length ? true : false;
         });
 
         // filterで空配列を取り除いた結果、ツイート情報がなければエラー処理をします。
@@ -273,8 +274,8 @@ module.exports = {
         // アカウントがツイートの日時順となっていないのでソートを行います。
         // (先頭のツイートがヒットしていないとツイート日時順が正しくない)
         let searchSortTweetsUsers = searchResultUsersTrim.sort((a, b) => {
-          if (new Date(Date.parse(a[0].created_at)) < new Date(Date.parse(b[0].created_at))) return 1;
-          if (new Date(Date.parse(a[0].created_at)) > new Date(Date.parse(b[0].created_at))) return -1;
+          if (new Date(Date.parse(a.data[0].created_at)) < new Date(Date.parse(b.data[0].created_at))) return 1;
+          if (new Date(Date.parse(a.data[0].created_at)) > new Date(Date.parse(b.data[0].created_at))) return -1;
           return 0;
         });
         // EJSで使用するためres.localsにツイート検索結果の配列を格納します。
@@ -308,7 +309,7 @@ module.exports = {
       {
         $pull: {
           twitterObject: {
-            $elemMatch: { 'user.screen_name': { $eq: req.body.screen_name } },
+            'includes.users.0.username': { $eq: req.body.screen_name },
           },
         },
       }
@@ -321,6 +322,7 @@ module.exports = {
           next();
         } else {
           // データベースの更新処理が行われなかった場合、falseを設定します
+          console.log(results);
           res.locals.success = false;
           next();
         }
