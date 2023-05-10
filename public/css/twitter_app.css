@@ -80,3 +80,25 @@
 #search-box::placeholder {
   text-align: center;
 }
+
+
+.nav-pills .nav-link {
+  color: white;
+}
+
+.nav-pills .nav-link:hover {
+  color: gray;
+}
+
+.nav-pills .nav-link.active {
+  color: white;
+  background-color: #0dcaf0
+}
+
+.nav-pills .nav-link.active:hover {
+  color: gray;
+}
+
+#admin {
+  height: 70vh;
+}

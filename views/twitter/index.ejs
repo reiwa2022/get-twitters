@@ -1,142 +1,173 @@
-<%# ツイッターアプリのトップ画面 %> <section class="ap-main">
-  <%# ヘッダー(タイトル、連絡先)です。%>
-  <header class="py-4">
-    <div class="container">
-      <div class="row">
-        <div class="d-none d-md-block col-md-3"></div>
-        <div class="col col-md-6 d-flex justify-content-center align-items-center text-center">
-          <h1>Twitter情報表示サイト<br class="d-block d-md-none">(勉強用)</h1>
-        </div>
-        <div class="col-10 col-md-3 mx-auto">
-          <div class="card bg-info text-white rounded-pill p-3 my-3">
-            <div class="card-body bg-primary rounded-pill">
-              <h5 class="card-title text-center">連絡先</h5>
-              <dl class="row gx-0">
-                <dt class="col-3 col-md-12 col-lg-3">氏名</dt>
-                <dd class="col-9 col-md-12 col-lg-9">保泉</dd>
-                <dt class="col-3 col-md-12 col-lg-3">メール</dt>
-                <dd class="col-9 col-md-12 col-lg-9">ho***ay@gmail.com</dd>
-                <dt class="col-3 col-md-12 col-lg-3">電話</dt>
-                <dd class="col-9 col-md-12 col-lg-9">080-88**-23**</dd>
-              </dl>
+<%# ツイッターアプリのトップ画面 %>
+
+<%# ピル型ナビゲーション %>
+<ul class="nav nav-pills justify-content-center" id="pillTab" role="tablist">
+  <li class="nav-item"><a class="nav-link active" id="main-tab" data-bs-toggle="pill" href="#main" role="tab" aria-controls="main" aria-selected="true">メイン</a></li>
+  <li class="nav-item"><a class="nav-link" id="admin-tab" data-bs-toggle="pill" role="tab" aria-controls="admin" aria-selected="false" href="#admin">データ更新</a></li>
+</ul>
+<%# ピル型ナビコンテンツ %>
+<div class="tab-content mt-3" id="pillTabContent">
+  <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+    <%# ツイッター取得表示アプリメイン画面 %>
+    <section class="ap-main">
+      <%# ヘッダー(タイトル、連絡先)です。%>
+      <header class="py-4">
+        <div class="container">
+          <div class="row">
+            <div class="d-none d-md-block col-md-3"></div>
+            <div class="col col-md-6 d-flex justify-content-center align-items-center text-center">
+              <h1>Twitter情報表示サイト<br class="d-block d-md-none">(勉強用)</h1>
+            </div>
+            <div class="col-10 col-md-3 mx-auto">
+              <div class="card bg-info text-white rounded-pill p-3 my-3">
+                <div class="card-body bg-primary rounded-pill">
+                  <h5 class="card-title text-center">連絡先</h5>
+                  <dl class="row gx-0">
+                    <dt class="col-3 col-md-12 col-lg-3">氏名</dt>
+                    <dd class="col-9 col-md-12 col-lg-9">保泉</dd>
+                    <dt class="col-3 col-md-12 col-lg-3">メール</dt>
+                    <dd class="col-9 col-md-12 col-lg-9">ho***ay@gmail.com</dd>
+                    <dt class="col-3 col-md-12 col-lg-3">電話</dt>
+                    <dd class="col-9 col-md-12 col-lg-9">080-88**-23**</dd>
+                  </dl>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </header>
+      <div class="container mb-3">
+        <div class="row">
+          <div class="col text-center">
+            <form method="post" action="/twitter/search">
+              <label for="search-box">ツイート検索</label><br>
+              <input type="search" id="search-box" name="searchWord" placeholder="検索ワード" class="rounded-3" required>
+              <button type="submit" class="rounded-3">検索</button>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
-  </header>
-  <div class="container mb-3">
-    <div class="row">
-      <div class="col text-center">
-        <form method="post" action="/twitter/search">
-          <label for="search-box">ツイート検索</label><br>
-          <input type="search" id="search-box" name="searchWord" placeholder="検索ワード" class="rounded-3" required>
-          <button type="submit" class="rounded-3">検索</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <%# ツイッター情報表示用のコンテナ。 %>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-10">
-        <div id="carousel-controls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-          <div class="carousel-inner">
-            <%# ツイート情報の配列をループで処理します %>
-            <% arrayTweetsUserTl.forEach((elem, index)=> { %>
 
-            <%# ページの先頭要素を判別します %>
-            <% if(index % tweeterAccountNum == 0){ %>
+      <%# ツイッター情報表示用のコンテナ。 %>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-10">
+            <div id="carousel-controls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+              <div class="carousel-inner">
+                <%# ツイート情報の配列をループで処理します %>
+                <% arrayTweetsUserTl.forEach((elem, index)=> { %>
 
-            <%# カルーセルの1ページ目をactiveにします %>
-            <% if(index==0){ %>
-            <div class="carousel-item active">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gx-1">
-                <%# 2ページ目以降はactiveにしません %>
-                <% }else{ %>
-                <div class="carousel-item">
+                <%# ページの先頭要素を判別します %>
+                <% if(index % tweeterAccountNum == 0){ %>
+
+                <%# カルーセルの1ページ目をactiveにします %>
+                <% if(index==0){ %>
+                <div class="carousel-item active">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gx-1">
-                    <% } %>
-                    <% } %>
-                    <%# ツイッター情報一つ分のカラムです。 %>
-                    <div class="col rounded-3 mb-1 tweet-column">
-                      <%# カラムの中にカードを作成します。 %>
-                      <div class="card bg-info text-white cus-card-height" id="<%= `${elem.includes.users[0].username}` %>">
-                        <%# カードヘッダー(アカウントアイコン、アカウント名、アカウント説明、削除ボタン)です。 %>
-                        <div class="card-header">
-                          <div class="row">
-                            <div class="col-3">
-                              <a href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
-                                <img src="<%= `${elem.includes.users[0].profile_image_url}` %>" class="mx-auto d-block mb-1" alt="ツイッターアイコン">
-                              </a>
-                              <button type="button" class="delete-btn mx-auto d-block rounded-3 text-nowrap" data-screen_name="<%= `${elem.includes.users[0].username}` %>">削除</button>
-                            </div>
-                            <div class="col-9">
+                    <%# 2ページ目以降はactiveにしません %>
+                    <% }else{ %>
+                    <div class="carousel-item">
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gx-1">
+                        <% } %>
+                        <% } %>
+                        <%# ツイッター情報一つ分のカラムです。 %>
+                        <div class="col rounded-3 mb-1 tweet-column">
+                          <%# カラムの中にカードを作成します。 %>
+                          <div class="card bg-info text-white cus-card-height" id="<%= `${elem.includes.users[0].username}` %>">
+                            <%# カードヘッダー(アカウントアイコン、アカウント名、アカウント説明、削除ボタン)です。 %>
+                            <div class="card-header">
                               <div class="row">
-                                <div class="col-12 d-flex justify-content-center align-items-center py-1">
-                                  <a class="link-underline" href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
-                                    <%- elem.includes.users[0].name %>
+                                <div class="col-3">
+                                  <a href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
+                                    <img src="<%= `${elem.includes.users[0].profile_image_url}` %>" class="mx-auto d-block mb-1" alt="ツイッターアイコン">
                                   </a>
+                                  <button type="button" class="delete-btn mx-auto d-block rounded-3 text-nowrap" data-screen_name="<%= `${elem.includes.users[0].username}` %>">削除</button>
                                 </div>
-                                <div class="col-12 cus-small-text-indent cus-small-font cus-line-ellipse">
-                                  <%- elem.includes.users[0].description %>
+                                <div class="col-9">
+                                  <div class="row">
+                                    <div class="col-12 d-flex justify-content-center align-items-center py-1">
+                                      <a class="link-underline" href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
+                                        <%- elem.includes.users[0].name %>
+                                      </a>
+                                    </div>
+                                    <div class="col-12 cus-small-text-indent cus-small-font cus-line-ellipse">
+                                      <%- elem.includes.users[0].description %>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
+                            <%# カードボディ(ツイート内容、ツイート時間)です。 %>
+                            <div class="card-body overflow-auto cus-card-body-height">
+                              <%# アカウントごとにツイートをすべて取得します %>
+                              <% elem.data.forEach((elemIn, index)=> { %>
+                              <p class="mb-0 lh-sm cus-small-text-indent cus-small-font cus-tweet-content">
+                                <%= elemIn.text %>
+                              </p>
+                              <p class="text-end mb-0 cus-xsmall-font">
+                                <%# ツイートタイムを計算し結果を表示するEJSをインクルードします。(この時elemInオブジェクトを渡します。) %>
+                                <%- include("../partials/_tweetTime", {elemIn: elemIn}) %>
+                              </p>
+                              <hr class="my-1">
+                              <% }) %>
+                            </div>
                           </div>
-                        </div>
-                        <%# カードボディ(ツイート内容、ツイート時間)です。 %>
-                        <div class="card-body overflow-auto cus-card-body-height">
-                          <%# アカウントごとにツイートをすべて取得します %>
-                          <% elem.data.forEach((elemIn, index)=> { %>
-                          <p class="mb-0 lh-sm cus-small-text-indent cus-small-font cus-tweet-content">
-                            <%= elemIn.text %>
-                          </p>
-                          <p class="text-end mb-0 cus-xsmall-font">
-                            <%# ツイートタイムを計算し結果を表示するEJSをインクルードします。(この時elemInオブジェクトを渡します。) %>
-                            <%- include("../partials/_tweetTime", {elemIn: elemIn}) %>
-                          </p>
-                          <hr class="my-1">
-                          <% }) %>
-                        </div>
-                      </div>
-                    </div><!-- １カラムの終了 -->
-                    <%# ページの終了処理 %>
-                    <%# ページに表示するアカウント数に達した時、「carousel item」のdivタグを閉じます %>
-                    <% if(index % tweeterAccountNum == tweeterAccountNum - 1){ %>
+                        </div><!-- １カラムの終了 -->
+                        <%# ページの終了処理 %>
+                        <%# ページに表示するアカウント数に達した時、「carousel item」のdivタグを閉じます %>
+                        <% if(index % tweeterAccountNum == tweeterAccountNum - 1){ %>
+                      </div><!-- rowの終了 -->
+                    </div><!-- carousel itemの終了 -->
+                    <% } %>
+                    <%# ループの終了 %>
+                    <% }) %>
                   </div><!-- rowの終了 -->
                 </div><!-- carousel itemの終了 -->
-                <% } %>
-                <%# ループの終了 %>
-                <% }) %>
-              </div><!-- rowの終了 -->
-            </div><!-- carousel itemの終了 -->
-          </div><!-- carousel-innerの終了 -->
-          <%# カルーセルのコントローラ %>
-          <a class="carousel-control-prev" href="#carousel-controls" role="buton" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">前に戻る</span>
-          </a>
-          <a class="carousel-control-next" href="#carousel-controls" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">次に送る</span>
-          </a>
-        </div><!-- carouselの終了 -->
-      </div>
-    </div>
-  </div>
-  <%# フッター(管理者画面リンク、コピーライト)です %>
-  <footer>
-    <hr>
-    <div class="container">
-      <div id="copylight-area" class="row">
-        <div class="col text-start"><a class="cus-link-color" href="/admin">管理者画面</a></div>
-        <div class="col text-end">
-          <p><small>&copy;Hozumi 2023</small></p>
+              </div><!-- carousel-innerの終了 -->
+              <%# カルーセルのコントローラ %>
+              <a class="carousel-control-prev" href="#carousel-controls" role="buton" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">前に戻る</span>
+              </a>
+              <a class="carousel-control-next" href="#carousel-controls" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">次に送る</span>
+              </a>
+            </div><!-- carouselの終了 -->
+          </div>
+        </div>
+      </div><!-- twitter containerの終了 -->
+  </div><!-- mainタブパネルの終了 -->
+
+  <%# データベース更新画面 %>
+  <div class="tab-pane fade mb-0" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+    <div class="container mt-5">
+      <div class="d-flex  flex-column align-items-center justify-content-start h-100">
+        <h2 class="admin-title mb-4">DB更新</h2>
+        <div class="text-center">
+          <p>データベースのツイート関連データを最新の状態にします。</p>
+          <form method="post" action="/admin/save" class=" mb-3">
+            <button type="submit" class="rounded-3">更新</button>
+          </form>
         </div>
       </div>
     </div>
-  </footer>
+  </div><!-- adminタブパネルの終了 -->
+</div><!-- ピル型ナビゲーションの終了 -->
+
+<%# フッター(管理者画面リンク、コピーライト)です %>
+<footer>
+  <hr>
+  <div class="container">
+    <div id="copylight-area" class="row">
+      <!-- <div class="col text-start"><a class="cus-link-color" href="/admin">管理者画面</a></div> -->
+      <div class="col text-end">
+        <p><small>&copy;Hozumi 2023</small></p>
+      </div>
+    </div>
+  </div>
+</footer>
 </section>
+
 <%# url文字列にリンクを貼るスクリプトを読み込みます %>
 <script defer type="text/javascript" src="/js/url-link.js"></script>
