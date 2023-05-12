@@ -254,13 +254,14 @@ module.exports = {
         // ツイート関連情報配列からアカウント配列をmapで処理します。
         let searchResultUsers = searchArrayTweetsUsers.map((tweetsUser) => {
           // アカウント配列のツイート情報をfilterし検索ワードにヒットしたツイートを返します。
+          // 検索にヒットしたツイート配列で元の配列を上書きます。
           tweetsUser.data = tweetsUser.data.filter((tweets) => {
             let result = tweets.text.indexOf(req.body.searchWord);
             return result === -1 ? false : true;
           });
           return tweetsUser;
         });
-        // ツイート情報のfilterで検索ワードにヒットしなかったアカウントが空配列として格納されているため取り除きます。
+        // ツイート情報のfilter処理で検索ワードにヒットしなかったアカウントが空配列として格納されているため取り除きます。
         let searchResultUsersTrim = searchResultUsers.filter((searchUser) => {
           return searchUser.data.length ? true : false;
         });
