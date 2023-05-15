@@ -8,7 +8,7 @@
         <h1>Twitter情報表示サイト<br class="d-block d-md-none">(勉強用)</h1>
       </div>
       <div class="col-10 col-md-3 mx-auto">
-        <div class="card bg-info text-white rounded-pill p-3 my-3">
+        <div class="card bg-info text-white rounded-pill p-2 my-3">
           <div class="card-body bg-primary rounded-pill">
             <h5 class="card-title text-center">連絡先</h5>
             <dl class="row gx-0">
@@ -68,7 +68,7 @@
                         <div class="row">
                           <div class="col-3">
                             <a href="<%= `https://twitter.com/${elem.includes.users[0].username}` %>" target="_blank">
-                              <img src="<%= `${elem.includes.users[0].profile_image_url}` %>" class="mx-auto d-block mb-1" alt="ツイッターアイコン">
+                              <img src="<%= `${elem.includes.users[0].profile_image_url}` %>" class="mx-auto d-block rounded-3 mb-1 cus-icon-float" alt="ツイッターアイコン">
                             </a>
                             <button type="button" class="delete-btn mx-auto d-block rounded-3 text-nowrap" data-screen_name="<%= `${elem.includes.users[0].username}` %>">削除</button>
                           </div>
